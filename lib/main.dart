@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import "route_generator.dart";
 import "dart:math";
-import "Bmi.dart";
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool man = false;
   bool noGender = false;
 
-  // var heightController = "";
-  // var weightController = "";
-
   final heightController = TextEditingController();
   final weightController = TextEditingController();
 
@@ -63,10 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void category() {
     setState(() {
-      String kat1 = "undervikt";
-      String kat2 = "normalvikt";
-      String kat3 = "övervikt";
-      String kat4 = "fetma";
+      String kat1 = "Det räknas som undervikt";
+      String kat2 = "Det räknas som normalvikt";
+      String kat3 = "Det räknas som övervikt";
+      String kat4 = "Det räknas som fetma";
 
       if (bmi < 18.5) {
         kategori = kat1;
@@ -185,119 +181,49 @@ class _MyHomePageState extends State<MyHomePage> {
             controller: weightController,
           ),
           ElevatedButton(
-            onPressed: _countBmi,
-            child: Text(
-              "Räkna ut BMI",
+            style: ElevatedButton.styleFrom(
+              primary: Colors.green.shade300,
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(10),
-            color: Colors.orange,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  "$gender BMI är: $bmi",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                Text(
-                  "$kategori",
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+            onPressed: () {
+              _countBmi();
+              _sendDataToBmi(context);
+            },
+            child: Text(
+              "Se resultat!",
+              style: TextStyle(fontSize: 22, color: Colors.grey.shade900),
             ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.green.shade300,
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            ),
             onPressed: () {
               reset();
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => ShowBmi(),
-              //   ),
-              // );
             },
-            child: Text("Rensa"),
+            child: Text(
+              "Börja om",
+              style: TextStyle(fontSize: 22, color: Colors.grey.shade900),
+            ),
           )
         ],
       ),
     );
   }
+
+  void _sendDataToBmi(BuildContext context) {
+    String kategoriResultat = kategori;
+    String genderResultat = gender;
+    double bmiResultat = bmi;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ShowBmi(
+            kategoriR: kategoriResultat,
+            genderR: genderResultat,
+            bmiR: bmiResultat,
+          ),
+        ));
+  }
 }
-// final List<Modellen> helaTodoListan = [];
-
-// void startToDo(BuildContext context) {
-//   showModalBottomSheet(
-//       context: context,
-//       builder: (_) => GestureDetector(
-//             child: NyTodo(addNewTodo),
-//           ));
-// }
-
-// void addNewTodo(String title, String comment, String date) {
-//   final newToDo = Modellen(title, comment, date);
-//   setState(() {
-//     helaTodoListan.add(
-//         newToDo); // Här lägger man till sakerna från Modellen till den nya listan
-//   });
-// }
-
-// TextField(
-//             decoration: InputDecoration(
-//               border: OutlineInputBorder(),
-//               label: Text("Längd i cm"),
-//             ),
-//             style: TextStyle(fontWeight: FontWeight.bold),
-//           ),
-//           TextField(
-//             decoration: InputDecoration(
-//               border: OutlineInputBorder(),
-//               label: Text("Vikt i kg"),
-//             ),
-//             style: TextStyle(fontWeight: FontWeight.bold),
-//           ),
-//           Text("Jag är"),
-//           ElevatedButton(
-//             child: Text("Man"),
-//             onPressed: () {},
-//           ),
-//           ElevatedButton(
-//             child: Text("Kvinna"),
-//             onPressed: () {},
-//           ),
-//           ElevatedButton(
-//             child: Text("Spelar ingen roll"),
-//             onPressed: () {},
-//           ),
-//           ElevatedButton(
-//             child: Text('Beräkna BMI'),
-//             onPressed: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(builder: (context) => ShowBmi()),
-//               );
-//             },
-//           ),
-
-
- // Container(
-                    //   height: 100.0,
-                    //   width: 100.0,
-                    //   decoration: BoxDecoration(
-                    //     shape: BoxShape.circle,
-                    //     color: Colors.amber,
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //           color: Colors.black26,
-                    //           offset: Offset(0, 2),
-                    //           blurRadius: 6.0)
-                    //     ],
-                    //   ),
-                    // ),
