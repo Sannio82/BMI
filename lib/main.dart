@@ -50,7 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
       double bmiCounted = weight / pow(height / 100, 2);
 
-      bmi = bmiCounted;
+      bmi = double.parse((bmiCounted).toStringAsFixed(2));
+
+      double.parse((12.3412).toStringAsFixed(2));
 
       category();
       genderSelection();
@@ -78,18 +80,20 @@ class _MyHomePageState extends State<MyHomePage> {
         kategori = "";
       }
 
-      print("$kategori");
+      print("Det räknas som $kategori");
     });
   }
 
   void genderSelection() {
     setState(() {
       if (woman == true) {
-        gender = "kvinna";
+        gender = "Du är kvinna och ditt";
       } else if (man == true) {
-        gender = "man";
+        gender = "Du är man och ditt";
       } else if (noGender == true) {
-        gender = "Du har inte angett kön";
+        gender = "Du har inte angett kön, ditt";
+      } else {
+        gender = "Du har inte angett kön, ditt";
       }
 
       print("$gender");
@@ -99,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void reset() {
     setState(() {
       bmi = 0.0;
+      gender = "";
 
       heightController.text = "";
       weightController.text = "";
@@ -186,11 +191,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Card(
-            child: Text("Du är $gender och ditt BMI är: $bmi"),
-            margin: const EdgeInsets.all(10),
-          ),
-          Card(
-            child: Text("Det räknas som $kategori"),
+            margin: EdgeInsets.all(10),
+            color: Colors.orange,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "$gender BMI är: $bmi",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                Text(
+                  "$kategori",
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
           ElevatedButton(
             onPressed: () {
