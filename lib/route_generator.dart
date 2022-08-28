@@ -3,6 +3,7 @@ import "main.dart";
 
 class ShowBmi extends StatelessWidget {
   String kategoriR;
+  String nameR;
   double bmiR;
   String genderR;
 
@@ -11,6 +12,7 @@ class ShowBmi extends StatelessWidget {
     required this.kategoriR,
     required this.bmiR,
     required this.genderR,
+    required this.nameR,
   }) : super(key: key);
 
   @override
@@ -33,11 +35,18 @@ class ShowBmi extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
+                    "Hej $nameR!",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
                     "$genderR BMI är: $bmiR",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade800,
+                      color: Colors.grey.shade900,
                     ),
                   ),
                   SizedBox(height: 6.0),
@@ -58,6 +67,7 @@ class ShowBmi extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             ),
             onPressed: () {
+              print("$nameR");
               Navigator.pop(context);
             },
             child: Text(

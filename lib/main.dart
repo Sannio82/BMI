@@ -32,12 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
   double bmi = 0.0;
   String kategori = "";
   String gender = "";
+  String name = "";
   bool woman = false;
   bool man = false;
   bool noGender = false;
 
   final heightController = TextEditingController();
   final weightController = TextEditingController();
+  final nameController = TextEditingController();
 
   void _countBmi() {
     setState(() {
@@ -48,12 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
       bmi = double.parse((bmiCounted).toStringAsFixed(2));
 
-      double.parse((12.3412).toStringAsFixed(2));
-
       category();
       genderSelection();
+      setName();
+    });
+  }
 
-      print("$bmi");
+  void setName() {
+    setState(() {
+      name = (nameController.text.toString());
     });
   }
 
@@ -75,8 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         kategori = "";
       }
-
-      print("Det räknas som $kategori");
     });
   }
 
@@ -91,8 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         gender = "Du har inte angett kön, ditt";
       }
-
-      print("$gender");
     });
   }
 
@@ -100,9 +101,11 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       bmi = 0.0;
       gender = "";
+      name = "";
 
       heightController.text = "";
       weightController.text = "";
+      nameController.text = "";
     });
   }
 
@@ -171,6 +174,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TextField(
               decoration: InputDecoration(
+                labelText: "Jag heter",
+                border: OutlineInputBorder(),
+              ),
+              controller: nameController),
+          TextField(
+              decoration: InputDecoration(
                   labelText: "Skriv in din längd i cm",
                   border: OutlineInputBorder()),
               controller: heightController),
@@ -203,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               reset();
             },
             child: Text(
-              "Börja om",
+              "Nollställ",
               style: TextStyle(fontSize: 22, color: Colors.grey.shade900),
             ),
           )
@@ -216,6 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String kategoriResultat = kategori;
     String genderResultat = gender;
     double bmiResultat = bmi;
+    String nameResultat = name;
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -223,6 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
             kategoriR: kategoriResultat,
             genderR: genderResultat,
             bmiR: bmiResultat,
+            nameR: nameResultat,
           ),
         ));
   }
